@@ -1,0 +1,36 @@
+{
+  "portfolio_allocations": {
+    "Income": 16.7,
+    "Main": 16.7,
+    "Moon": 16.7,
+    "PCRA Trust": 16.7,
+    "Roth IRA": 16.7,
+    "Savings": 16.7,
+    "Shared": 0.0
+  },
+  "share_alloc_pcts": {
+    "Income": {
+      "IAUI": 100.0
+    },
+    "Main": {
+      "CGDV": 100.0
+    },
+    "Shared": {
+      "OUNZ": 100.0
+    },
+    "Savings": {
+      "BINC": 100.0
+    },
+    "Moon": {
+      "SWPPX": 100.0
+    },
+    "PCRA Trust": {
+      "SWPRX": 100.0
+    },
+    "Roth IRA": {
+      "BPTRX": 100.0
+    }
+  },
+  "growth_rate": 0.06,
+  "savings_yield": 0.0275
+}

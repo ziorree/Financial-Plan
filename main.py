@@ -259,15 +259,28 @@ if "holdings_by_account" not in st.session_state:
     st.session_state.all_holdings = all_holdings
     st.session_state.cash_balance = cash_balance
 if "months" not in st.session_state:
-    now = datetime.now().replace(day=1)
-    st.session_state.months = []
-    for i in range(NUM_MONTHS):
-        dt = now + relativedelta(months=i)
-        date_key = dt.strftime("%Y-%m")
-        st.session_state.months.append({
-            "date": date_key, "label": dt.strftime("%b %Y"),
-            **make_month_defaults(date_key),
-        })
+    _budget_loaded = False
+    if BUDGET_FILE.exists():
+        try:
+            _bdata = json.loads(BUDGET_FILE.read_text())
+            st.session_state.months = _bdata["months"]
+            if "car_paid_toggles" in _bdata:
+                st.session_state.car_paid_toggles = _bdata["car_paid_toggles"]
+            if "checks_received" in _bdata:
+                st.session_state.checks_received = _bdata["checks_received"]
+            _budget_loaded = True
+        except Exception:
+            pass
+    if not _budget_loaded:
+        now = datetime.now().replace(day=1)
+        st.session_state.months = []
+        for i in range(NUM_MONTHS):
+            dt = now + relativedelta(months=i)
+            date_key = dt.strftime("%Y-%m")
+            st.session_state.months.append({
+                "date": date_key, "label": dt.strftime("%b %Y"),
+                **make_month_defaults(date_key),
+            })
 # Ensure all budget fields exist in every month (backward compat for new fields)
 for _m in st.session_state.months:
     for _f in ALL_BUDGET_FIELDS:
@@ -300,6 +313,7 @@ if "car_paid_toggles" not in st.session_state:
     st.session_state.car_paid_toggles = {}
 if "checks_received" not in st.session_state:
     st.session_state.checks_received = {}
+
 if "credit_card_balance" not in st.session_state:
     if CREDIT_CARD_BAL_FILE.exists():
         st.session_state.credit_card_balance = json.loads(CREDIT_CARD_BAL_FILE.read_text()).get("balance", 0.0)
