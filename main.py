@@ -21,6 +21,11 @@ from tabs.shared import (
     BUDGET_FILE,
     save_all, load_all, calc_annual_taxes, compute_paycheck_schedule, compute_month_totals,
 )
+
+# Defensive fallback for stale/partial deploys where BUDGET_FILE may not import.
+if "BUDGET_FILE" not in globals():
+    BUDGET_FILE = BASE_DIR / "save_budget.json"
+
 # -- Parse Position CSV -------------------------------------------------------
 def parse_dollar(s):
     if s is None:
