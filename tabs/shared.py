@@ -2,7 +2,7 @@
 import streamlit as st
 import json
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta
 # ── Paths ──────────────────────────────────────────────────────────────────────
 BASE_DIR = Path(__file__).parent.parent
 BUDGET_FILE    = BASE_DIR / "save_budget.json"
@@ -147,3 +147,46 @@ def load_all():
     load_projection()
     load_dividends()
     load_retirement()
+
+def compute_paycheck_schedule(ret):
+    """Returns (net_per_check, {date_key: [payday_date, ...]}, {date_key: total_net})"""
+    if not ret.get("hourly_rate"):
+        return 0.0, {}, {}
+    gross_annual = ret["hourly_rate"] * ret.get("hours_per_year", 2080)
+    freq = ret.get("pay_frequency", "Biweekly")
+    checks = {"Biweekly": 26, "Semi-Monthly": 24, "Monthly": 12}.get(freq, 26)
+    gross_pc = gross_annual / checks
+    k401_pct = ret.get("k401_contribution_pct", 5.0) / 100.0
+    k401_pc = gross_pc * k401_pct
+    k401_annual = gross_annual * k401_pct
+    benefits = ret.get("benefits_per_check", 0)
+    fed, state_tax, fica = calc_annual_taxes(gross_annual, ret.get("state", "Florida"), k401_annual)
+    net_pc = gross_pc - k401_pc - benefits - fed / checks - state_tax / checks - fica / checks
+    next_pd = ret.get("next_payday", "2026-04-24")
+    try:
+        start = datetime.strptime(next_pd, "%Y-%m-%d").date()
+    except Exception:
+        return 0.0, {}, {}
+    delta = timedelta(days=14) if freq == "Biweekly" else timedelta(days=15)
+    paydays_per_month = {}
+    current = start
+    end = start + timedelta(days=400)
+    while current <= end:
+        key = current.strftime("%Y-%m")
+        paydays_per_month.setdefault(key, []).append(current)
+        current += delta
+    totals = {k: round(len(v) * net_pc, 2) for k, v in paydays_per_month.items()}
+    return round(net_pc, 2), paydays_per_month, totals
+
+def compute_month_totals(month):
+    """Compute summary totals for a single month dict."""
+    income_total = sum(float(month.get(f, 0.0)) for f in INCOME_FIELDS)
+    expense_total = sum(float(month.get(f, 0.0)) for f in EXPENSE_FIELDS) + float(month.get("one_time_expense", 0.0))
+    invested_total = sum(float(month.get(f, 0.0)) for f in INVEST_FIELDS)
+    money_left = income_total - expense_total - invested_total
+    return {
+        "income_total": income_total,
+        "expense_total": expense_total,
+        "invested_total": invested_total,
+        "money_left": money_left,
+    }
