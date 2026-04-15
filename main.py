@@ -416,15 +416,22 @@ st.markdown("""
         gap: 6px !important;
         background: transparent !important;
         border-bottom: none !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
     }
     button[data-baseweb="tab"] {
         background: #f0f7ff !important;
         border: 1.5px solid #c2def6 !important;
         border-radius: 12px !important;
         color: var(--app-text) !important;
-        padding: 6px 18px !important;
+        padding: 8px 16px !important;
         font-weight: 600 !important;
         box-shadow: none !important;
+        min-height: 36px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
     button[data-baseweb="tab"][aria-selected="true"] {
         background: #2d6fb5 !important;
@@ -455,40 +462,26 @@ st.markdown("""
     [data-baseweb="radio"] input:checked ~ div div { background-color: var(--app-blue-deep) !important; }
     [data-testid="stRadio"] label span { color: var(--app-text) !important; }
     /* Sidebar navigation: bubble-style selector */
-    section[data-testid="stSidebar"] div[role="radiogroup"] [data-baseweb="radio"] {
-        flex: 0 0 0 !important;
-        width: 0 !important;
-        min-width: 0 !important;
-        overflow: hidden !important;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
+    /* Hide just the radio circle dot, keep text visible */
+    /* Sidebar navigation: highlight selected item, hide nothing */
     section[data-testid="stSidebar"] div[role="radiogroup"] label {
-        display: flex !important;
-        align-items: center !important;
-        background: #f0f7ff !important;
-        border: 1.5px solid #c2def6 !important;
-        border-radius: 12px !important;
-        padding: 7px 14px !important;
+        border-radius: 10px !important;
+        padding: 5px 10px !important;
         margin: 2px 0 !important;
         cursor: pointer !important;
-        box-sizing: border-box !important;
-        box-shadow: none !important;
     }
-    section[data-testid="stSidebar"] div[role="radiogroup"] label:has(input[type="radio"]:checked) {
+    section[data-testid="stSidebar"] div[role="radiogroup"] label:has([role="radio"][aria-checked="true"]) {
         background: #2d6fb5 !important;
-        border-color: #2d6fb5 !important;
+        border-radius: 10px !important;
     }
-    section[data-testid="stSidebar"] div[role="radiogroup"] label:has(input[type="radio"]:checked) p,
-    section[data-testid="stSidebar"] div[role="radiogroup"] label:has(input[type="radio"]:checked) span {
+    section[data-testid="stSidebar"] div[role="radiogroup"] label:has([role="radio"][aria-checked="true"]) p,
+    section[data-testid="stSidebar"] div[role="radiogroup"] label:has([role="radio"][aria-checked="true"]) span {
         color: #ffffff !important;
     }
-    section[data-testid="stSidebar"] div[role="radiogroup"] label p,
-    section[data-testid="stSidebar"] div[role="radiogroup"] label span {
-        color: var(--app-text) !important;
+    section[data-testid="stSidebar"] div[role="radiogroup"] [role="radio"][aria-checked="true"] > div {
+        background: #ffffff !important;
+        border-color: #ffffff !important;
     }
-    section[data-testid="stSidebar"] div[role="radiogroup"] label:focus,
-    section[data-testid="stSidebar"] div[role="radiogroup"] label:focus-visible,
     section[data-testid="stSidebar"] div[role="radiogroup"] *:focus,
     section[data-testid="stSidebar"] div[role="radiogroup"] *:focus-visible {
         outline: none !important;
