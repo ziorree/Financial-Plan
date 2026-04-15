@@ -3,7 +3,6 @@ Loads data, renders sidebar, routes to per-tab modules.
 """
 import streamlit as st
 import pandas as pd
-import openpyxl
 from pathlib import Path
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -99,6 +98,11 @@ def load_excel_defaults():
         "income_brokerage": 0.0, "bonus": 0.0,
     }
     if not EXCEL_FILE.exists():
+        return _defaults_only, {"Car Loan": 0.0}, 0.06, 0.0275, {}, {}
+    try:
+        import openpyxl
+    except ImportError:
+        # Keep app running on environments missing Excel support.
         return _defaults_only, {"Car Loan": 0.0}, 0.06, 0.0275, {}, {}
     wb = openpyxl.load_workbook(str(EXCEL_FILE), data_only=True)
     ws = wb["Main"]; wss = wb["Savings (Shared)"]
