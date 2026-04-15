@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+
+# Local runtime/app state
+api_settings.json
+schwab_tokens.json
+last_saved.json
+
+# Local position backups and callback payloads
+Position Files/*.json
+Position Files/*.tmp
+
+# Local tunnel / env artifacts
+.env
+.venv/
