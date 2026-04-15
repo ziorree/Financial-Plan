@@ -1,0 +1,74 @@
+{
+  "div_holdings": {
+    "IAUI_Income": {
+      "ticker": "IAUI",
+      "shares": 5.1577,
+      "price": 58.9,
+      "yield_pct": 0.1263,
+      "account": "Income"
+    },
+    "IYRI_Income": {
+      "ticker": "IYRI",
+      "shares": 11.4088,
+      "price": 49.49,
+      "yield_pct": 0.1117,
+      "account": "Income"
+    },
+    "MLPI_Income": {
+      "ticker": "MLPI",
+      "shares": 6.2934,
+      "price": 55.1,
+      "yield_pct": 0.08,
+      "account": "Income"
+    },
+    "QQQI_Income": {
+      "ticker": "QQQI",
+      "shares": 18.8558,
+      "price": 52.92,
+      "yield_pct": 0.14,
+      "account": "Income"
+    },
+    "CGDV_Main": {
+      "ticker": "CGDV",
+      "shares": 42.1669,
+      "price": 45.41,
+      "yield_pct": 0.02,
+      "account": "Main"
+    },
+    "VTI_Shared": {
+      "ticker": "VTI",
+      "shares": 90.281,
+      "price": 342.65,
+      "yield_pct": 0.013,
+      "account": "Shared"
+    },
+    "BINC_Savings": {
+      "ticker": "BINC",
+      "shares": 12.0135,
+      "price": 52.36,
+      "yield_pct": 0.055,
+      "account": "Savings"
+    },
+    "SWOBX_Shared": {
+      "ticker": "SWOBX",
+      "shares": 672.605,
+      "price": 18.06,
+      "yield_pct": 0.02,
+      "account": "Shared"
+    },
+    "SWVXX_Shared": {
+      "ticker": "SWVXX",
+      "shares": 301644.25,
+      "price": 1.0,
+      "yield_pct": 0.0425,
+      "account": "Shared"
+    },
+    "SWVXX_Savings": {
+      "ticker": "SWVXX",
+      "shares": 2038.5,
+      "price": 1.0,
+      "yield_pct": 0.0425,
+      "account": "Savings"
+    }
+  }
+}

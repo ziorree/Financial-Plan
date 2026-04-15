@@ -1,0 +1,15 @@
+{
+  "roth_balance": 0.0,
+  "k401_balance": 0.0,
+  "current_age": 25,
+  "retirement_age": 65,
+  "monthly_roth_contribution": 0.0,
+  "k401_contribution_pct": 5.0,
+  "annual_return": 7.0,
+  "hourly_rate": 39.5,
+  "hours_per_year": 2080,
+  "pay_frequency": "Biweekly",
+  "benefits_per_check": 150.0,
+  "state": "Florida",
+  "next_payday": "2026-04-24"
+}

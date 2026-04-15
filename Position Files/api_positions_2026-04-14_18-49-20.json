@@ -1,0 +1,10 @@
+{
+  "source": "test",
+  "positions": [
+    {
+      "ticker": "SPY",
+      "qty": 1,
+      "net_liq": 550.12
+    }
+  ]
+}
